@@ -104,7 +104,8 @@ Open `src/frontend/index.html` in your web browser.
 
 ## 📱 Usage
 
-You can find the demo video [here](assets/demo.mp4)
+You can find the demo video [here](https://drive.google.com/drive/folders/17yIaO-gm7EbDhzzbY5nfm-SiSXkeJpzV?usp=drive_link)
+
 ---
 
 ![main.png](assets/main.png)
