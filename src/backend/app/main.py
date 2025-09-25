@@ -10,6 +10,7 @@ import base64
 import polars as pl
 import numpy as np
 import traceback
+import uvicorn
 
 from services.file_service import save_file, process_file, parse_with_llamaparse, save_markdown
 from services.summary_service import SummaryService
@@ -96,6 +97,7 @@ async def summarize_document(
             summary=db_summary.summary_text
         )
     except Exception as e:
+        import traceback
         print(f"DEBUG: Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Summarization failed: {str(e)}")
 
@@ -154,6 +156,7 @@ async def process_data(
                 }
                 
             except Exception as e:
+                import traceback
                 print(f"DEBUG: Traceback: {traceback.format_exc()}")
                 raise HTTPException(status_code=500, detail=f"PDF processing failed: {str(e)}")
         
@@ -252,6 +255,7 @@ async def process_data(
                 }
                 
             except Exception as e:
+                import traceback
                 print(f"DEBUG: Traceback: {traceback.format_exc()}")
                 raise HTTPException(status_code=500, detail=f"Data processing failed: {str(e)}")
         
@@ -350,6 +354,7 @@ async def visualize_data(
         print(f"DEBUG: HTTPException raised: {http_exc.detail}")
         raise
     except Exception as e:
+        import traceback
         print(f"DEBUG: Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Visualization failed: {str(e)}")
 
@@ -369,5 +374,4 @@ def root():
 
 if __name__ == "__main__":
     print("DEBUG: Starting server")
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
