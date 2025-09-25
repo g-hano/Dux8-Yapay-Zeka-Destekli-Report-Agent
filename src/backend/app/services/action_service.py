@@ -1,4 +1,4 @@
-from llama_index.llms.ollama import Ollama
+#from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from typing import Dict, Any
 import json
@@ -9,8 +9,8 @@ api_key = os.getenv('OPENAI_API_KEY')
 
 class ActionItemsService:
     def __init__(self):
-        self.llm = Ollama(model="gemma3:12b", request_timeout=120.0)
-        #self.llm = OpenAI(api_key=api_key)
+        #self.llm = Ollama(model="gemma3:12b", request_timeout=120.0)
+        self.llm = OpenAI(api_key=api_key)
     
     def _get_trends_as_dict(self, trends: Any) -> Dict[str, Dict[str, Any]]:
         if isinstance(trends, dict):
@@ -304,4 +304,5 @@ Please respond in the same JSON format, but with priorities updated according to
         try:
             return self._parse_llm_response(str(response))
         except:
+
             return basic_actions
