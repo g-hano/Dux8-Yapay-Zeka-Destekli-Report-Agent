@@ -102,9 +102,13 @@ python main.py
 5. **Open the frontend**
 Open `src/frontend/index.html` in your web browser.
 
+---
+
 ## 📱 Usage
 
 You can find the demo video [here](https://drive.google.com/drive/folders/17yIaO-gm7EbDhzzbY5nfm-SiSXkeJpzV?usp=drive_link)
+
+*I sped up the video because I was testing with Ollama models and it was slow*
 
 ---
 
