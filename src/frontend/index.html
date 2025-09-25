@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Intelligence Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-file-alt"></i>
+                <span>Document Intelligence Platform</span>
+            </div>
+            <div class="user-info">
+                <span>User ID</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="rag-tab">
+                <i class="fas fa-comments"></i> RAG Chat
+            </button>
+            <button class="nav-tab" data-tab="summary-tab">
+                <i class="fas fa-file-contract"></i> Summarization
+            </button>
+            <button class="nav-tab" data-tab="report-tab">
+                <i class="fas fa-file-alt"></i> Report Creation
+            </button>
+            <button class="nav-tab" data-tab="trend-tab">
+                <i class="fas fa-chart-line"></i> Trends & KPIs
+            </button>
+            <button class="nav-tab" data-tab="action-tab">
+                <i class="fas fa-tasks"></i> Action Items
+            </button>
+            <button class="nav-tab" data-tab="visualization-tab">
+                <i class="fas fa-chart-bar"></i> Visualization
+            </button>
+        </div>
+
+        <!-- RAG Tab -->
+        <div id="rag-tab" class="tab-content active">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i> Document Chat (RAG)
+            </h2>
+            
+            <div class="upload-area" id="rag-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Document</h3>
+                <p>Drag & drop your file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="rag-file-input" class="file-input" accept=".pdf,.docx,.txt,.csv,.xlsx,.xls">
+            </div>
+            
+            <div id="rag-file-info" class="result-container" style="display: none;">
+                <h3>Document Uploaded</h3>
+                <p id="rag-file-name"></p>
+                <p id="rag-file-id"></p>
+            </div>
+            
+            <div id="rag-chat-container" style="display: none;">
+                <h3>Chat with your Document</h3>
+                <div class="chat-container" id="rag-messages"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="rag-input" class="form-control chat-input" placeholder="Ask a question about your document...">
+                    <button id="rag-send-btn" class="btn">Send</button>
+                </div>
+                
+                <div class="debug-info" id="rag-debug" style="display: none;">
+                    <h4>Debug Information</h4>
+                    <div id="rag-debug-content"></div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <button id="rag-toggle-debug" class="btn btn-secondary">Toggle Debug Info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summarization Tab -->
+        <div id="summary-tab" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-file-contract"></i> Document Summarization
+            </h2>
+            
+            <div class="upload-area" id="summary-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Document</h3>
+                <p>Drag & drop your file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="summary-file-input" class="file-input" accept=".pdf,.docx,.txt">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="summary-max-length">Maximum Summary Length (words)</label>
+                        <input type="number" id="summary-max-length" class="form-control" value="500" min="50" max="1000">
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="summary-focus">Summary Focus (Optional)</label>
+                        <input type="text" id="summary-focus" class="form-control" placeholder="e.g., main points, key findings, conclusions">
+                    </div>
+                </div>
+            </div>
+            
+            <button id="generate-summary-btn" class="btn" style="display: none;">Generate Summary</button>
+            
+            <div id="summary-result" class="summary-box" style="display: none;">
+                <h3>Document Summary</h3>
+                <div id="summary-content"></div>
+                <div class="summary-stats">
+                    <div class="summary-stat">
+                        <div class="summary-stat-label">Original Words</div>
+                        <div class="summary-stat-value" id="original-words">-</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-stat-label">Summary Words</div>
+                        <div class="summary-stat-value" id="summary-words">-</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-stat-label">Compression</div>
+                        <div class="summary-stat-value" id="compression-ratio">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="summary-error" class="error-box" style="display: none;">
+                <h4>Error Generating Summary</h4>
+                <p id="summary-error-message"></p>
+                <div class="error-details" id="summary-error-details"></div>
+            </div>
+        </div>
+
+        <!-- Report Creation Tab -->
+        <div id="report-tab" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i> Report Creation
+            </h2>
+            
+            <div class="upload-area" id="report-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Document</h3>
+                <p>Drag & drop your file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="report-file-input" class="file-input" accept=".pdf,.docx,.txt">
+            </div>
+            
+            <div id="report-result" class="result-container" style="display: none;">
+                <h3>Generated Report</h3>
+                <div id="report-content"></div>
+            </div>
+        </div>
+
+        <!-- Trends & KPIs Tab -->
+        <div id="trend-tab" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i> Trends & KPIs Analysis
+            </h2>
+            
+            <div class="upload-area" id="trend-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Data File</h3>
+                <p>Drag & drop your CSV or Excel file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="trend-file-input" class="file-input" accept=".csv,.xlsx,.xls">
+            </div>
+            
+            <div id="trend-result" style="display: none;">
+                <h3>KPIs</h3>
+                <div id="kpi-container" class="row"></div>
+                
+                <h3 style="margin-top: 30px;">Trends</h3>
+                <div id="trend-container"></div>
+            </div>        
+        </div>
+        <!-- Add this to your data analysis section -->
+
+        <!-- Action Items Tab -->
+        <div id="action-tab" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-tasks"></i> Action Items Generation
+            </h2>
+            
+            <div class="upload-area" id="action-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Document</h3>
+                <p>Drag & drop your file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="action-file-input" class="file-input" accept=".pdf,.docx,.txt,.csv,.xlsx,.xls">
+            </div>
+            
+            <div class="form-group">
+                <label for="business-context">Business Context (Optional)</label>
+                <textarea id="business-context" class="form-control" rows="3" placeholder="Provide additional context about your business to generate more relevant action items..."></textarea>
+            </div>
+            
+            <div id="action-result" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Generated Action Items</h3>
+                    <div class="filter-container">
+                        <label for="priority-filter" style="margin-right: 10px;">Filter by Priority:</label>
+                        <select id="priority-filter" class="form-control" style="width: auto; display: inline-block;">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="action-container"></div>
+            </div>
+        </div>
+
+        <!-- Visualization Tab -->
+        <div id="visualization-tab" class="tab-content">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i> Data Visualization
+            </h2>
+            
+            <div class="upload-area" id="visualization-upload-area">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Upload Data File</h3>
+                <p>Drag & drop your CSV or Excel file here or click to browse</p>
+                <button class="btn">Select File</button>
+                <input type="file" id="visualization-file-input" class="file-input" accept=".csv,.xlsx,.xls">
+            </div>
+            
+            <div class="form-group">
+                <label for="chart-type">Chart Type</label>
+                <select id="chart-type" class="form-control">
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="scatter">Scatter Plot</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="x-column">X-Axis Column</label>
+                <input type="text" id="x-column" class="form-control" placeholder="Leave empty for auto-detection">
+            </div>
+            
+            <div class="form-group">
+                <label for="y-column">Y-Axis Column</label>
+                <input type="text" id="y-column" class="form-control" placeholder="Leave empty for auto-detection">
+            </div>
+            
+            <button id="generate-visualization-btn" class="btn" style="display: none;">Generate Visualization</button>
+            
+            <div id="visualization-result" class="visualization-container" style="display: none;">
+                <h3>Generated Visualization</h3>
+                <img id="visualization-image" src="" alt="Data Visualization">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Cihan Yalçın - 25.09.2025</p>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
