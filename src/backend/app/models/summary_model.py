@@ -3,7 +3,7 @@ from typing import Optional
 import os
 import json
 from datetime import datetime
-from llama_index.llms.ollama import Ollama
+#from llama_index.llms.ollama import Ollama
 from llama_index.llms.openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,8 +22,8 @@ class SummaryResponse(BaseModel):
 
 class SummaryService:
     def __init__(self):
-        self.llm = Ollama(model="gemma3:12b", request_timeout=60.0)
-        #self.llm = OpenAI(api_key=api_key)
+        #self.llm = Ollama(model="gemma3:12b", request_timeout=60.0)
+        self.llm = OpenAI(api_key=api_key)
         self.summaries_dir = "summaries"
         if not os.path.exists(self.summaries_dir):
             os.makedirs(self.summaries_dir)
@@ -78,4 +78,5 @@ class SummaryService:
         with open(summary_path, "r", encoding="utf-8") as f:
             summary_data = json.load(f)
         
+
         return summary_data
