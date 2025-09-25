@@ -8,8 +8,8 @@ from llama_index.core.node_parser import SentenceSplitter
 from llama_index.readers.file import MarkdownReader
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.llms.ollama import Ollama
+#from llama_index.embeddings.ollama import OllamaEmbedding
+#from llama_index.llms.ollama import Ollama
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,10 +27,10 @@ class RAGService:
             os.makedirs(self.index_dir)
         
         try:
-            Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text:latest")
-            Settings.llm = Ollama(model="gemma3:12b", request_timeout=600.0)
-            #Settings.embed_model = OpenAIEmbedding(api_key=api_key)
-            #Settings.llm = OpenAI(api_key=api_key)
+            #Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text:latest")
+            #Settings.llm = Ollama(model="gemma3:12b", request_timeout=600.0)
+            Settings.embed_model = OpenAIEmbedding(api_key=api_key)
+            Settings.llm = OpenAI(api_key=api_key)
             Settings.text_splitter = SentenceSplitter(chunk_size=512, chunk_overlap=10)
         except Exception as e:
             raise
@@ -142,4 +142,5 @@ def query_rag(file_id: str, query: str):
     return rag_service.query(file_id, query)
 
 def delete_from_rag(file_id: str):
+
     return rag_service.delete_document(file_id)
