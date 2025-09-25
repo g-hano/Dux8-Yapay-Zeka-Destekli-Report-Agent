@@ -78,7 +78,7 @@ src/
 1. **Clone the repository**
 ```bash
 git clone https://github.com/g-hano/Dux8-Yapay-Zeka-Destekli-Report-Agent.git
-cd document-intelligence-platform
+cd Dux8-Yapay-Zeka-Destekli-Report-Agent
 ```
 
 2. **Install dependencies**
