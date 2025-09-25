@@ -3,7 +3,7 @@ import os
 import traceback
 from typing import Optional
 from llama_index.core import StorageContext, load_index_from_storage
-from llama_index.llms.ollama import Ollama
+#from llama_index.llms.ollama import Ollama
 from dotenv import load_dotenv
 from llama_index.llms.openai import OpenAI
 load_dotenv()
@@ -11,8 +11,8 @@ api_key = os.getenv('OPENAI_API_KEY')
 
 class SummaryService:
     def __init__(self):
-        self.llm = Ollama(model="gemma3:12b", request_timeout=600.0)
-        #self.llm = OpenAI(api_key=api_key)
+        #self.llm = Ollama(model="gemma3:12b", request_timeout=600.0)
+        self.llm = OpenAI(api_key=api_key)
 
     def summarize_document(self, file_id: str, max_length: Optional[int] = 500) -> str:
         try:
@@ -31,4 +31,5 @@ class SummaryService:
             return str(response)
         
         except Exception as e:
+
             raise Exception(f"Error generating summary: {str(e)}")
