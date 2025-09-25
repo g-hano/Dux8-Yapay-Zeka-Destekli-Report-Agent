@@ -77,7 +77,7 @@ src/
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/g-hano/Dux8-Yapay-Zeka-Destekli-Report-Agent.git
 cd document-intelligence-platform
 ```
 
@@ -104,7 +104,8 @@ Open `src/frontend/index.html` in your web browser.
 
 ## 📱 Usage
 
-[video]
+You can find the demo video [here](assets/demo.mp4)
+---
 
 ![main.png](assets/main.png)
 
