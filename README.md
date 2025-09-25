@@ -190,7 +190,7 @@ Create interactive charts and graphs from your data with multiple visualization 
 - ✅ Intuitive report upload interface
 - ✅ Summary reports, KPI and trend visualizations
 - ✅ User-friendly dashboard with multiple tabs
-- ✅ Filtering and comparison capabilities
+- ✅ Filtering and comparison capabilities (in Trends&KPIs section)
 
 ### ✅ AI Integration
 - ✅ Automated summary, trend and KPI extraction from reports
